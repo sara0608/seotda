@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/services.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'mainMenu.dart';
 
 void main() async {
@@ -15,19 +14,17 @@ void main() async {
 
   runApp(MyApp());
 }
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: AnimatedSplashScreen(
-          duration: 3000,
-          splash: 'assets/images/prosoft_logo.png',
+          duration: 2000,
+          splash: 'assets/log/ss_crew.png',
           nextScreen: MainMenu(),
-          splashTransition: SplashTransition.sizeTransition,
-          pageTransitionType: PageTransitionType.fade,
-          backgroundColor: Colors.white),
-
+          splashTransition: SplashTransition.fadeTransition,
+          backgroundColor: Colors.black),
     );
   }
 }
