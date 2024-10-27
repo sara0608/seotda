@@ -5,6 +5,9 @@ import 'game/gameFlame.dart';
 class MainMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //이미지 미리로드
+    precacheImage(AssetImage('assets/images/background.png'), context);
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(

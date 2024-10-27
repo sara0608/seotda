@@ -1,36 +1,51 @@
 import 'package:flame/game.dart';
+import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
-class GameFlame extends StatelessWidget {
+class GameFlame extends StatefulWidget {
+  const GameFlame({super.key});
+  @override
+  State<GameFlame> createState() => _GameFlame();
+}
+
+class _GameFlame extends State<GameFlame> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Game Screen'),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            // 게임 도중에 메인 메뉴로 돌아가려면 뒤로가기 버튼을 눌렀을 때 pop
-            Navigator.pop(context);
-          },
-        ),
-      ),
       body: GameWidget(
-        game: _GameFlame(
-          // onGameOver: () {
-          //   // 게임이 끝나면 메인 메뉴로 돌아가기
-          //   Navigator.pop(context);
-          // },
-        ),
+        game: seotda(),
+        overlayBuilderMap: {
+          'back_button' : (BuildContext context, seotda game){
+              return Align(
+                alignment: Alignment.topLeft,
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_left_sharp, size: 60, color: Colors.black,),
+                  onPressed: ()=>{
+                    Navigator.pop(context)
+                  },
+                ),
+              );
+          }
+        },
       ),
     );
   }
 }
 
-class _GameFlame extends FlameGame {
+class seotda extends FlameGame with HasGameRef {
+  late SpriteComponent backButton, background;
 
   @override
   Future<void> onLoad() async {
+    super.onLoad();
+
+    background = SpriteComponent()
+      ..sprite = await gameRef.loadSprite('step1/background.png')
+      ..size = size; // 전체 화면 크기에 맞게 설정
+
+    add(background);
+    overlays.add("back_button");
 
   }
+
 }
